@@ -39,17 +39,50 @@ function showMap(coords) {
   control.style.display = "block";
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
+  //
+  // Here check if startData and endData exist, if yes, call calculateAndDisplayRoute
+  // and mention that it's the first call (app opening)
+  //
+
+  if (localStorage.getItem("startData") && localStorage.getItem("endData"))
+    calculateAndDisplayRoute(true, directionsService, directionsRenderer);
+
   var onChangeHandler = function () {
-    calculateAndDisplayRoute(directionsService, directionsRenderer);
+    //
+    // Here add false because it's not the first call, but only called with onChangeHandler
+    //
+    calculateAndDisplayRoute(false, directionsService, directionsRenderer);
   };
   document.getElementById("start").addEventListener("change", onChangeHandler);
   document.getElementById("end").addEventListener("change", onChangeHandler);
 }
 
 //function to calculate start and end driving directions
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-  var start = document.getElementById("start").value;
-  var end = document.getElementById("end").value;
+function calculateAndDisplayRoute(
+  first,
+  directionsService,
+  directionsRenderer
+) {
+  var start;
+  var end;
+
+  //
+  // Here, if first call and startData & endData exist, use data from storage. If they don't exist
+  // or if it's not the first call, use data from getElementById.
+  //
+
+  if (
+    first &&
+    localStorage.getItem("startData") &&
+    localStorage.getItem("endData")
+  ) {
+    start = localStorage.getItem("startData");
+    end = localStorage.getItem("endData");
+  } else {
+    start = document.getElementById("start").value;
+    end = document.getElementById("end").value;
+  }
+
   directionsService.route(
     {
       origin: start,
@@ -65,36 +98,36 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     }
   );
 
-  showData();
+  showData(start, end);
+}
 
-  function showData() {
-    if (navigator.storage && navigator.storage.persist)
-      navigator.storage.persisted().then((persistent) => {
-        if (persistent)
-          console.log(
-            "Storage will not be cleared except by explicit user action"
-          );
-        else
-          console.log(
-            "Storage may be cleared by the UA under storage pressure."
-          );
-      });
+function showData(start, end) {
+  console.log(4);
+  if (navigator.storage && navigator.storage.persist)
+    navigator.storage.persisted().then((persistent) => {
+      if (persistent)
+        console.log(
+          "Storage will not be cleared except by explicit user action"
+        );
+      else
+        console.log("Storage may be cleared by the UA under storage pressure.");
+    });
 
-    event.preventDefault();
+  // event.preventDefault();
 
-    localStorage.setItem("startData", start);
-    localStorage.setItem("endData", end);
+  localStorage.setItem("startData", start);
+  localStorage.setItem("endData", end);
 
-    var sData = localStorage.getItem("startData");
-    var eData = localStorage.getItem("endData");
+  // var sData = localStorage.getItem("startData");
+  // var eData = localStorage.getItem("endData");
 
-    //var sObject = JSON.parse(sData);
-    //var eObject = JSON.parse(eData);
-  }
+  //var sObject = JSON.parse(sData);
+  //var eObject = JSON.parse(eData);
 }
 
 //function to display errors
 function displayError(error) {
+  console.log("3");
   var errors = [
     "Unknown error",
     "Permission denied by user",
@@ -107,6 +140,7 @@ function displayError(error) {
 
 //function to authorize HTML5 geolocation and call additional functions
 window.onload = function () {
+  console.log("1");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(displayLocation, displayError);
   } else {
@@ -115,6 +149,7 @@ window.onload = function () {
 };
 
 function saveData() {
+  console.log("2");
   var startObject = document.getElementById("start");
   var endObject = document.getElementById("end");
 
@@ -122,13 +157,15 @@ function saveData() {
   endObject.addEventListener("click", showData, false);
 }
 
-function showData() {
-  localStorage.setItem("startData", JSON.stringify(startObject));
-  localStorage.setItem("endData", JSON.stringify(endObject));
+// function showData() {
+//   console.log('BBBBBB')
 
-  var sData = localStorage.getItem("startData");
-  var eData = localStorage.getItem("endData");
+//   localStorage.setItem("startData", JSON.stringify(startObject));
+//   localStorage.setItem("endData", JSON.stringify(endObject));
 
-  var sObject = JSON.parse(sData);
-  var eObject = JSON.parse(eData);
-}
+//   var sData = localStorage.getItem("startData");
+//   var eData = localStorage.getItem("endData");
+
+//   var sObject = JSON.parse(sData);
+//   var eObject = JSON.parse(eData);
+// }
