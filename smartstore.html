@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/smartstore.css" />
+  <title>Find Locations</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Smart Homes</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="smartstore.html">Store Locator <span
+              class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="smartflickr.html">Flickr Gallery</a>
+          <a class="nav-item nav-link" href="#"></a>
+        </div>
+      </div>
+      <div class="nav navbar-nav navbar-right">
+        <a class="nav-item nav-link" href="#">About</a>
+        <a class="nav-item nav-link" href="#">Contact Us</a>
+      </div>
+    </div>
+
+  </nav>
+
+  <div id="floating-panel">
+    <strong>Start:</strong>
+    <select id="start">
+      <option value="Best Buy, 80012">Aurora Location</option>
+      <option value="Best Buy, 80122">Centennial Location</option>
+      <option value="Best Buy, 80123">Lakewood Location</option>
+      <option value="Best Buy, 80222">Denver Location</option>
+      <option value="Best Buy, 80138">Parker Location</option>
+      <option value="Best Buy, 80301">Boulder Location</option>
+      <option value="Best Buy, 80501">Longmont Location</option>
+      <option value="Best Buy, 80922">Colorado Springs Location</option>
+    </select>
+    <br />
+    <strong>End:</strong>
+    <select id="end">
+      <option value="Best Buy, 80012">Aurora Location</option>
+      <option value="Best Buy, 80122">Centennial Location</option>
+      <option value="Best Buy, 80123">Lakewood Location</option>
+      <option value="Best Buy, 80222">Denver Location</option>
+      <option value="Best Buy, 80138">Parker Location</option>
+      <option value="Best Buy, 80301">Boulder Location</option>
+      <option value="Best Buy, 80501">Longmont Location</option>
+      <option value="Best Buy, 80922">Colorado Springs Location</option>
+    </select>
+  </div>
+
+
+  <div id="right-panel"></div>
+  <div id="map"></div>
+
+  <footer>
+    <div class="container">
+      <p>Copyright &copy; 2020 Smart Homes, Inc.</p>
+    </div>
+  </footer>
+  <!-- Replace the value of the key parameter with your own API key. -->
+  <script src="js/smartstore.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR-KEY-HERE"></script>
+</body>
+
+</html>
