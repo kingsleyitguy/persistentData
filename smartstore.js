@@ -146,6 +146,29 @@ window.onload = function () {
   } else {
     alert("Sorry, this browser doesn't support geolocation!");
   }
+
+  var startValue = localStorage.getItem("startData");
+  var endValue = localStorage.getItem("endData");
+
+  var startSelect = document.getElementById('start');
+  var endSelect = document.getElementById('end');
+
+  var startOptions = startSelect.options;
+  var endOptions = endSelect.options;
+
+  for (let i = 0; i < startOptions.length; i++) {
+    if(startOptions[i].value === startValue)
+      startOptions[i].selected = true
+    else
+      startOptions[i].selected = false
+  }
+
+  for (let i = 0; i < endOptions.length; i++) {
+    if(endOptions[i].value === endValue)
+      endOptions[i].selected = true
+    else
+      endOptions[i].selected = false
+  }
 };
 
 function saveData() {
